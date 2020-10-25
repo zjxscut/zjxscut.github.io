@@ -1,0 +1,115 @@
+---
+title: [Servlet学习笔记]-01
+date: 2020-09-03 20:18:45
+tags: Java Servlet
+---
+
+## Servlet是什么？
+
+<img src="https://images2015.cnblogs.com/blog/874710/201702/874710-20170214204632894-1786729693.png" width="400px">
+
+​		Servlet是一个接口。
+
+​		使用过程：在实际编程的时候，只需要继承HttpServlet类，当有客户端请求过来时，Servlet容器(如Tomcat)会根据Servlet-mapping去查找并使用编写好的类文件(.class)去创建Servlet实例，完成请求到相应的整个过程。
+
+​		在整个使用过程中，其实没有进行底层的网络编程进行编写(如监听端口、接收一个请求并解析请求数据内容)，而是直接可以开展业务逻辑内容。那么底层的代码是谁来实现的呢？答案不言而喻——Servlet容器(如Tomcat)。
+
+​		对Servlet可以这样理解：当一个客户端请求到达后，Servlet容器对请求进行简单解析后，根据解析内容查找到编写好的servlet类文件去生成一个实例，由该实例去完成该请求所需执行的业务，并返回响应客户端。		注意：这里的初始化、业务逻辑代码执行、返回相应，都是由Servlet容器去调用实现的，因为执行的步骤一样而执行的实例不一样，用工厂模式去理解这整个流程更容易些。
+
+
+
+## Servlet简单使用流程
+
+1）创建一个的java类并继承HttpServlet
+
+2）重写service方法
+
+3）在service中实现响应请求的逻辑
+
+4）在webRoot下的WEB-INF/web.xml中配置servlet 
+
+
+
+## 生命周期
+
+1）init方法的执行，代表着servlet生命周期的开始（只执行一次，以后的使用都不会执行，类加载器中一直保留）
+
+2）请求处理，每个请求过来，都会调用请求处理函数，以获取返回的结果，方法有：service、doGet、doPost
+
+3）destory方法，执行以结束servlet生命周期。（只执行一次）
+
+回收：由JVM垃圾回收器进行回收
+
+<img src="https://www.runoob.com/wp-content/uploads/2014/07/Servlet-LifeCycle.jpg" width="300px">
+
+## 生命周期程序测试
+
+​		分别在init、doGet和destroy中写入如下程序，进行对生命周期的观察：
+
+```java
+@WebServlet(urlPatterns = "/my")
+public class Test extends HttpServlet {
+    private int i = 0;
+    @Override
+    public void init() throws ServletException {
+        System.out.println("init---------");
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.getWriter().println("i am fine" + (++i));
+        System.out.println("i am fine" + i);
+        if (i >= 5) {
+            this.destroy();
+        }
+    }
+
+    @Override
+    public void destroy() {
+        System.out.println("destroy---------");
+    }
+}
+```
+
+​		访问对应网页后得如下结果：
+
+```text
+init---------
+i am fine1
+i am fine2
+i am fine3
+i am fine4
+i am fine5
+destroy---------
+```
+
+​		目前看来符合生命周期的三条结论，但当我们继续刷新当前网页，得到以下反馈：
+
+```text
+i am fine6
+destroy---------
+i am fine7
+destroy---------
+```
+
+​		为什么destroy后，i的值不被清零且继续增加呢？
+
+​		这里跟JVM垃圾回收机制有关，当这个servlet实例没有被回收，再次调用时，会把之前创建的拿来继续使用。所以这里就埋下一个隐患：当实例没有来得及回收时，采取什么办法处理这种情况。（destroy里面清空数据，可能会影响下一个请求的服务情况；若不清空数据，可能导致代码逻辑混乱，如未支付订单直接显示已付款）
+
+
+
+## 对应用场景的思考
+
+​		servlet生命周期的特性，只要不执行destroy，就不会结束生命周期被回收。
+
+​		提交订单：可以先提交订单，实现卖家买家更改信息，然后最后付款完成订单；这都是离散事件，servlet对信息的临时保持可以很好地实现。潜在隐患：当不能被回收的servlet实例过多，占用大量的内存。
+
+
+
+## [参考资料]
+
+<a href="https://www.cnblogs.com/whgk/p/6399262.html">Java Web(一) Servlet详解！！</a>
+
+<a href="https://blog.csdn.net/qq_19782019/article/details/80292110">JavaWeb——Servlet（全网最详细教程包括Servlet源码分析）</a>
+
+<a href="https://www.runoob.com/servlet/servlet-life-cycle.html">Servlet 生命周期|菜鸟教程</a>

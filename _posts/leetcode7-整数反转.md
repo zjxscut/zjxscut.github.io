@@ -1,0 +1,35 @@
+---
+title: leetcode7-整数反转
+date: 2019-09-19 21:10:02
+tags: leetcode
+---
+
+[题目原文链接](https://leetcode-cn.com/problems/reverse-integer/submissions/)
+
+　　这个题目很简单，只需要注意溢出就可以了。让x%10所得结果是x低位，把x低位加进result里面，通过乘以10的方法将所得所有数字往高位移动。<!-- more -->
+
+代码如下：
+
+```c++
+class Solution {
+public:
+    int reverse(int x) {
+        int i = x;
+        long result = 0;
+        if(x == 0)
+            return x;
+        while(x != 0){       
+            result *= 10;         //将result整体数字十进制左移
+            result += x%10;       //将x低位移动到result低位
+            x /= 10;              //x丢弃最低位
+        }
+        if(x < 0)
+            result = -result;
+        if(result > INT_MAX || result < INT_MIN)    //判断溢出
+            return 0;
+        return result;
+        
+    }
+};
+```
+
