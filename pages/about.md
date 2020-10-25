@@ -1,7 +1,7 @@
 ---
 layout: page
 title: About
-keywords: G.Fukang
+keywords: ZJX
 comments: true
 menu: 关于
 permalink: /about/
@@ -13,6 +13,6 @@ permalink: /about/
 
 # 联系我
 
-- GitHub：[G.Fukang](<https://github.com/gongfukangEE>)
-- OutLook：[gongfukang@outlook.com](gongfukang@outlook.com)
+- GitHub：[ZJX](<https://github.com/zjxscut>)
+- OutLook：[zjx@outlook.com](zjx@outlook.com)
 - 掘金：[匿名用户_01](<https://juejin.im/user/5b0a70c7f265da0dc9244c6c>)
