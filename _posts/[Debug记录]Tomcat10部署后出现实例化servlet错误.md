@@ -1,9 +1,10 @@
 ---
-title: [Debug记录]Tomcat10部署后出现实例化servlet错误
-date: 2020-09-04 22:06:00
-tags: Tomcat10
+layout: post
+title:  [Debug记录]Tomcat10部署后出现实例化servlet错误
+categories: WEB开发
+description: Debug记录
+keywords: Tomcat
 ---
-
 
 
 ## 问题描述：

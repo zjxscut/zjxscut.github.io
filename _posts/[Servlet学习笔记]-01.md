@@ -1,7 +1,9 @@
 ---
-title: [Servlet学习笔记]-01
-date: 2020-09-03 20:18:45
-tags: Java Servlet
+layout: post
+title:  [Servlet学习笔记]-01
+categories: WEB开发
+description: Servlet学习笔记学习笔记
+keywords: Servlet学习笔记
 ---
 
 ## Servlet是什么？
