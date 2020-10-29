@@ -7,6 +7,9 @@ keywords: leetcode
 ---
 
 kmp算法是较为经典的字符串匹配算法，可以达到O(n+m)时间复杂度。<!-- more -->
+
+
+
 ```java
 class Solution {
     public int strStr(String haystack, String needle) {
