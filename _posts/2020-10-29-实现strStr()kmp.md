@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  [Servlet学习笔记]-01
+title:  Servlet学习笔记-01
 categories: leetcode
 description: leetcode
 keywords: Servlet学习笔记

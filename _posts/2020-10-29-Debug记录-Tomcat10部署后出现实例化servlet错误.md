@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  [Debug记录]Tomcat10部署后出现实例化servlet错误
+title:  Debug记录-Tomcat10部署后出现实例化servlet错误
 categories: WEB开发
 description: Debug记录
 keywords: Tomcat
