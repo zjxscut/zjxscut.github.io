@@ -1,3 +1,5 @@
+
+```java
 class Solution {
     public int findRotateSteps(String ring, String key) {
         char[] rings = new char[ring.length()*3];
@@ -28,3 +30,5 @@ class Solution {
         return ans;
     }
 }
+
+```
